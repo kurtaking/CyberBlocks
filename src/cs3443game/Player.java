@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Player implements Comparable<Player>
 {
 	ArrayList<Player> players = new ArrayList<Player>();
-	private String username;
-	private int score;
+	public String username;
+	public int score;
 	
 	/**
 	 * Constructor for setting up a user
@@ -36,6 +36,22 @@ public class Player implements Comparable<Player>
 	public void setPoints(int points) {
 		score = points;
 		
+	}
+	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 	
 }

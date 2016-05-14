@@ -1,17 +1,10 @@
 package cs3443game;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.ArrayList;
-
-
-
-
-
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,8 +14,7 @@ import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class EndGameView extends JPanel {
-	
-	private ArrayList<Player> users;
+	private ArrayList<Player> players;
 	private Image background;
 	private ImageIcon mainmenu;
 	private ImageIcon addplayer;
@@ -40,15 +32,13 @@ public class EndGameView extends JPanel {
     	setBackground(new Color(0, true));
         setSize(1280, 720);
         setVisible(true);
-        setUsers(new ArrayList<Player>());
+        setPlayers(new ArrayList<Player>());
         info = new DefaultListModel<>();
         listbox = new JList<>( info );
-        
     }
 
 	/**
 	 * Class to set the JPanel background
-	 *
 	 */
     @Override
     public void paintComponent(Graphics g)
@@ -56,7 +46,7 @@ public class EndGameView extends JPanel {
         //Paint background
         g.drawImage (background, 0, 0, null);
         
-		for(Player user : getUsers())
+		for(Player user : getPlayers())
 		{
 			if(!info.contains(user.toString()))
         		info.addElement(user.toString());
@@ -66,11 +56,6 @@ public class EndGameView extends JPanel {
     	listbox.setLocation(560, 360);
     	this.add(listbox);
     }
-
-
-    private ArrayList<Player> getUsers() {
-    	return users;
-	}
 
 	/**
      * Method that sets the icons with images & the background image too
@@ -94,8 +79,6 @@ public class EndGameView extends JPanel {
 		textField.setSize(120,20);
     	add(textField);
 	
-    	// Create a new listbox control
-    	
     	JButton addPlayer = new JButton(addplayer);
     	addPlayer.setText("button_addplayer");
     	addPlayer.setLocation(680, 280);
@@ -128,30 +111,49 @@ public class EndGameView extends JPanel {
 		this.add(button_tryagain);
 		this.add(addPlayer);
 	}
-     
+    
+    /**
+     * Get the username from the text field
+     * @return
+     */
     public String getText(){
  		return textField.getText();
  	}
 
+    /**
+     * Create a new player and add to the array list
+     * @param points the players score from their most recent game
+     */
 	public void addPlayer(int points) {
 		Player player = getPlayer();
 		player.setPoints(points);
-		getUsers().add(player);
+		getPlayers().add(player);
 		
 		this.repaint();
-		
 	}
 
-	private Player getPlayer() {
-		System.out.println(textField.getText());
+	/**
+	 * @return the new player that just finished a game
+	 */
+	public Player getPlayer() {
 		Player player = new Player(textField.getText());
 		
 		return player;
 	}
 
-
-	public void setUsers(ArrayList<Player> users) {
-		this.users = users;
+	/**
+	 * Returns an array list of players
+	 * @return
+	 */
+	public ArrayList<Player> getPlayers() {
+    	return players;
 	}
-
+	
+	/**
+	 * Set the array list of players to the most current list
+	 * @param players
+	 */
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
+	}
 }
